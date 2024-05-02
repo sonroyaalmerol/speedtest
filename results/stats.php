@@ -63,17 +63,12 @@ header('Pragma: no-cache');
     <body>
         <h1>LibreSpeed - Stats</h1>
         <?php
-        if (!isset($stats_password) || $stats_password === 'PASSWORD') {
-            ?>
-                Please set $stats_password in telemetry_settings.php to enable access.
-            <?php
-        } elseif ($_SESSION['logged'] === true) {
-            if ($_GET['op'] === 'logout') {
-                $_SESSION['logged'] = false;
+        if (!empty($_SERVER['HTTP_X_AUTHENTIK_USERNAME'])) {
+            if (!str_contains($_SERVER['HTTP_X_AUTHENTIK_GROUPS'], 'sglitgroup')) {
                 ?><script type="text/javascript">window.location=location.protocol+"//"+location.host+location.pathname;</script><?php
             } else {
                 ?>
-                <form action="stats.php" method="GET"><input type="hidden" name="op" value="logout" /><input type="submit" value="Logout" /></form>
+                <form action="/outpost.goauthentik.io/sign_out" method="GET"><input type="hidden" name="op" value="logout" /><input type="submit" value="Logout" /></form>
                 <form action="stats.php" method="GET">
                     <h3>Search test results</h3>
                     <input type="hidden" name="op" value="id" />
@@ -156,17 +151,6 @@ header('Pragma: no-cache');
                     <?php
                 }
             }
-        } elseif ($_GET['op'] === 'login' && $_POST['password'] === $stats_password) {
-            $_SESSION['logged'] = true;
-            ?><script type="text/javascript">window.location=location.protocol+"//"+location.host+location.pathname;</script><?php
-        } else {
-            ?>
-            <form action="stats.php?op=login" method="POST">
-                <h3>Login</h3>
-                <input type="password" name="password" placeholder="Password" value=""/>
-                <input type="submit" value="Login" />
-            </form>
-            <?php
         }
         ?>
     </body>
