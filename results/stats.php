@@ -108,6 +108,10 @@ header('Pragma: no-cache');
                             <td><?= htmlspecialchars($speedtest['id_formatted'], ENT_HTML5, 'UTF-8') ?></td>
                         </tr>
                         <tr>
+                            <th>Username</th>
+                            <td><?= htmlspecialchars($speedtest['username'], ENT_HTML5, 'UTF-8') ?></td>
+                        </tr>
+                        <tr>
                             <th>Date and time</th>
                             <td><?= htmlspecialchars($speedtest['timestamp'], ENT_HTML5, 'UTF-8') ?></td>
                         </tr>

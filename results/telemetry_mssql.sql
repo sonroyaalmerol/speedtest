@@ -10,6 +10,7 @@ CREATE TABLE [dbo].[speedtest_users](
 	[ip] [nvarchar](max) NOT NULL,
 	[ispinfo] [nvarchar](max) NULL,
 	[extra] [nvarchar](max) NULL,
+	[username] [nvarchar](max) NULL,
 	[ua] [nvarchar](max) NOT NULL,
 	[lang] [nvarchar](max) NOT NULL,
 	[dl] [nvarchar](max) NULL,

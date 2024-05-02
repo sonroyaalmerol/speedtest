@@ -111,6 +111,7 @@ function getPdo($returnErrorMessage = false)
                 `id`    INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
                 `ispinfo`    text,
                 `extra`    text,
+                `username`    text,
                 `timestamp`     timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
                 `ip`    text NOT NULL,
                 `ua`    text NOT NULL,
@@ -173,7 +174,7 @@ function isObfuscationEnabled()
 /**
  * @return string|false returns the id of the inserted column or false on error if returnErrorMessage is false or a error message if returnErrorMessage is true
  */
-function insertSpeedtestUser($ip, $ispinfo, $extra, $ua, $lang, $dl, $ul, $ping, $jitter, $log, $returnExceptionOnError = false)
+function insertSpeedtestUser($ip, $ispinfo, $extra, $username, $ua, $lang, $dl, $ul, $ping, $jitter, $log, $returnExceptionOnError = false)
 {
     $pdo = getPdo();
     if (!($pdo instanceof PDO)) {
@@ -186,11 +187,11 @@ function insertSpeedtestUser($ip, $ispinfo, $extra, $ua, $lang, $dl, $ul, $ping,
     try {
         $stmt = $pdo->prepare(
             'INSERT INTO speedtest_users
-        (ip,ispinfo,extra,ua,lang,dl,ul,ping,jitter,log)
-        VALUES (?,?,?,?,?,?,?,?,?,?)'
+        (ip,ispinfo,extra,username,ua,lang,dl,ul,ping,jitter,log)
+        VALUES (?,?,?,?,?,?,?,?,?,?,?)'
         );
         $stmt->execute([
-            $ip, $ispinfo, $extra, $ua, $lang, $dl, $ul, $ping, $jitter, $log
+            $ip, $ispinfo, $extra, $username, $ua, $lang, $dl, $ul, $ping, $jitter, $log
         ]);
         $id = $pdo->lastInsertId();
     } catch (Exception $e) {
@@ -233,7 +234,7 @@ function getSpeedtestUserById($id,$returnExceptionOnError = false)
     try {
         $stmt = $pdo->prepare(
             'SELECT
-            id, timestamp, ip, ispinfo, ua, lang, dl, ul, ping, jitter, log, extra
+            id, timestamp, ip, ispinfo, ua, lang, dl, ul, ping, jitter, log, extra, username
             FROM speedtest_users
             WHERE id = :id'
         );
@@ -276,7 +277,7 @@ function getLatestSpeedtestUsers()
 		
 		if('mssql' === $db_type) {$sql .= ' TOP(100) ';}
 		
-		$sql .= ' id, timestamp, ip, ispinfo, ua, lang, dl, ul, ping, jitter, log, extra
+		$sql .= ' id, timestamp, ip, ispinfo, ua, lang, dl, ul, ping, jitter, log, extra, username
             FROM speedtest_users
             ORDER BY timestamp DESC ';
 			

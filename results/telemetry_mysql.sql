@@ -25,6 +25,7 @@ CREATE TABLE `speedtest_users` (
   `ip` text NOT NULL,
   `ispinfo` text,
   `extra` text,
+  `username` text,
   `ua` text NOT NULL,
   `lang` text NOT NULL,
   `dl` text,

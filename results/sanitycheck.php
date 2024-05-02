@@ -112,6 +112,7 @@ if(!isset($db_type) || $db_type != 'postgresql'){
 <tr><td>Insert into DB</td><td>
 <?php
 	$ip = getClientIp();
+	$username = $_SERVER['X-authentik-username'];
 	$ispinfo="";
 	$extra='{"DBTest":"This is a simple test of the database.  No speed test was done."}';
 	$ua = $_SERVER['HTTP_USER_AGENT'];
@@ -123,7 +124,7 @@ if(!isset($db_type) || $db_type != 'postgresql'){
 	$dl=$ul=$ping=$jitter="";
 	$log="";
 
-	$insertResult = insertSpeedtestUser($ip, $ispinfo, $extra, $ua, $lang, $dl, $ul, $ping, $jitter, $log, true);
+	$insertResult = insertSpeedtestUser($ip, $ispinfo, $extra, $username, $ua, $lang, $dl, $ul, $ping, $jitter, $log, true);
 	
 	if(($insertResult instanceof Exception)){
 		echo $failed;
