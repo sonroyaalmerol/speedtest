@@ -112,7 +112,7 @@ if(!isset($db_type) || $db_type != 'postgresql'){
 <tr><td>Insert into DB</td><td>
 <?php
 	$ip = getClientIp();
-	$username = $_SERVER['X-authentik-username'];
+	$username = $_SERVER['HTTP_X_AUTHENTIK_USERNAME'];
 	$ispinfo="";
 	$extra='{"DBTest":"This is a simple test of the database.  No speed test was done."}';
 	$ua = $_SERVER['HTTP_USER_AGENT'];

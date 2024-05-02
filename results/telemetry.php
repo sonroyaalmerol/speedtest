@@ -8,7 +8,7 @@ $ip = getClientIp();
 $ispinfo = $_POST['ispinfo'];
 $extra = $_POST['extra'];
 $ua = $_SERVER['HTTP_USER_AGENT'];
-$username = $_SERVER['X-authentik-username'];
+$username = $_SERVER['HTTP_X_AUTHENTIK_USERNAME'];
 $lang = '';
 if (isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
     $lang = $_SERVER['HTTP_ACCEPT_LANGUAGE'];
