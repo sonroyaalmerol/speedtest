@@ -295,8 +295,8 @@ function initUI(){
 	<div id="descriptionBox">
 		<label for="description">Location Description:</label>
 		<input type="text" id="description" name="description"></input>
-	</div><br/>
-	<div id="startStopBtn" onclick="startStop()"></div><br/>
+	</div><br/><br/>
+	<div id="startStopBtn" onclick="startStop()"></div><br/><br/>
 	<?php if(getenv("TELEMETRY")=="true"){ ?>
         <a class="privacy" href="#" onclick="I('privacyPolicy').style.display=''">Privacy</a>
 	<?php } ?>
