@@ -121,10 +121,10 @@ if(!isset($db_type) || $db_type != 'postgresql'){
 		$lang = $_SERVER['HTTP_ACCEPT_LANGUAGE'];
 	}
 
-	$dl=$ul=$ping=$jitter="";
+	$dl=$ul=$ping=$jitter=$description="";
 	$log="";
 
-	$insertResult = insertSpeedtestUser($ip, $ispinfo, $extra, $username, $ua, $lang, $dl, $ul, $ping, $jitter, $log, true);
+	$insertResult = insertSpeedtestUser($ip, $ispinfo, $extra, $username, $description, $ua, $lang, $dl, $ul, $ping, $jitter, $log, true);
 	
 	if(($insertResult instanceof Exception)){
 		echo $failed;

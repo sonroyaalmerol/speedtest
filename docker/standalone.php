@@ -71,10 +71,14 @@ function startStop(){
 		s.abort();
 		data=null;
 		I("startStopBtn").className="";
+		I("descriptionBox").style.display="inline-block";
+        I("description").readOnly=false;
 		initUI();
 	}else{
 		//test is not running, begin
 		I("startStopBtn").className="running";
+		I("descriptionBox").style.display="none";
+        I("description").readOnly=true;
 		I("shareArea").style.display="none";
 		s.onupdate=function(data){
             uiData=data;
@@ -91,6 +95,8 @@ function startStop(){
                         I("resultsImg").src=shareURL;
                         I("resultsURL").value=shareURL;
                         I("testId").innerHTML=testId;
+                        I("descriptionBox").style.display="inline-block";
+                        I("description").readOnly=true;
                         I("shareArea").style.display="";
                     }
                 }catch(e){}
@@ -131,6 +137,7 @@ function initUI(){
 	I("pingText").textContent="";
 	I("jitText").textContent="";
 	I("ip").textContent="";
+	I("description").value="";
 }
 </script>
 <style type="text/css">
@@ -145,6 +152,10 @@ function initUI(){
 	}
 	h1{
 		color:#404040;
+	}
+	#descriptionBox{
+		display:inline-block;
+		margin:0 auto;
 	}
 	#startStopBtn{
 		display:inline-block;
@@ -281,6 +292,10 @@ function initUI(){
 <body>
 <h1><?= getenv('TITLE') ?: 'LibreSpeed Example' ?></h1>
 <div id="testWrapper">
+	<div id="descriptionBox">
+		<label for="description">Location Description:</label>
+		<input type="text" id="description" name="description"></input>
+	</div>
 	<div id="startStopBtn" onclick="startStop()"></div><br/>
 	<?php if(getenv("TELEMETRY")=="true"){ ?>
         <a class="privacy" href="#" onclick="I('privacyPolicy').style.display=''">Privacy</a>

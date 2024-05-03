@@ -709,6 +709,7 @@ function sendTelemetry(done) {
 	try {
 		var fd = new FormData();
 		fd.append("ispinfo", JSON.stringify(telemetryIspInfo));
+		fd.append("description", document.getElementById("description").value);
 		fd.append("dl", dlStatus);
 		fd.append("ul", ulStatus);
 		fd.append("ping", pingStatus);
