@@ -367,6 +367,7 @@ Speedtest.prototype = {
         });
     }
     this._state = 3;
+    this._settings.description = document.getElementById("description").value;
     this.worker.postMessage("start " + JSON.stringify(this._settings));
   },
   /**

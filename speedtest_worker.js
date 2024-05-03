@@ -38,6 +38,7 @@ function twarn(s) {
 // test settings. can be overridden by sending specific values with the start command
 var settings = {
 	mpot: false, //set to true when in MPOT mode
+	description: "",
 	test_order: "IP_D_U", //order in which tests will be performed as a string. D=Download, U=Upload, P=Ping+Jitter, I=IP, _=1 second delay
 	time_ul_max: 15, // max duration of upload test in seconds
 	time_dl_max: 15, // max duration of download test in seconds
@@ -709,7 +710,7 @@ function sendTelemetry(done) {
 	try {
 		var fd = new FormData();
 		fd.append("ispinfo", JSON.stringify(telemetryIspInfo));
-		fd.append("description", document.getElementById("description").value);
+		fd.append("description", settings.description);
 		fd.append("dl", dlStatus);
 		fd.append("ul", ulStatus);
 		fd.append("ping", pingStatus);
@@ -718,7 +719,7 @@ function sendTelemetry(done) {
 		fd.append("extra", settings.telemetry_extra);
 		xhr.send(fd);
 	} catch (ex) {
-		var postData = "description=" + document.getElementById("description").value + "&extra=" + encodeURIComponent(settings.telemetry_extra) + "&ispinfo=" + encodeURIComponent(JSON.stringify(telemetryIspInfo)) + "&dl=" + encodeURIComponent(dlStatus) + "&ul=" + encodeURIComponent(ulStatus) + "&ping=" + encodeURIComponent(pingStatus) + "&jitter=" + encodeURIComponent(jitterStatus) + "&log=" + encodeURIComponent(settings.telemetry_level > 1 ? log : "");
+		var postData = "description=" + encodeURIComponent(settings.description) + "&extra=" + encodeURIComponent(settings.telemetry_extra) + "&ispinfo=" + encodeURIComponent(JSON.stringify(telemetryIspInfo)) + "&dl=" + encodeURIComponent(dlStatus) + "&ul=" + encodeURIComponent(ulStatus) + "&ping=" + encodeURIComponent(pingStatus) + "&jitter=" + encodeURIComponent(jitterStatus) + "&log=" + encodeURIComponent(settings.telemetry_level > 1 ? log : "");
 		xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 		xhr.send(postData);
 	}
